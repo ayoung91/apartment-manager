@@ -1,0 +1,49 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="close()">&times;</button>
+            <h4 class="modal-title">{{ title }}</h4>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="tenantInfoForm" (ngSubmit)="saveTenant()">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="First_Name"
+                           placeholder="Enter First Name"
+                           (input)="tenantInfo.person.firstName = $event.target.value">
+                    <show-errors [control]="tenantInfoForm.controls.First_Name"></show-errors>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="Last_Name"
+                           placeholder="Enter Last Name"
+                           (input)="tenantInfo.person.lastName = $event.target.value">
+                    <show-errors [control]="tenantInfoForm.controls.Last_Name"></show-errors>
+                </div>
+                <div class="form-group">
+                    <label for="apartment">Available Room</label>
+                    <select class="form-control"
+                            formControlName="Apartment"
+                            (input)="selectedRoom = event.target.value">
+                        <option *ngFor="let apartment of availableRooms" [ngValue]="apartment.id">{{ apartment.address.streetAddress }}, {{ apartment.address.city }}, {{ apartment.address.state }}, {{ apartment.roomNumber }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input ngxPhoneMask type="text"
+                           class="form-control"
+                           formControlName="Phone_Number"
+                           placeholder="Enter Phone Number"
+                           (input)="tenantInfo.person.personContact.phoneNumber = $event.target.value">
+                    <show-errors [control]="tenantInfoForm.controls.Phone_Number"></show-errors>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!tenantInfoForm.valid">Submit</button>
+                <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

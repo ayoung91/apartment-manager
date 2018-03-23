@@ -1,0 +1,33 @@
+﻿<h2>Building Information</h2>
+<button class="btn btn-primary" (click)=addBuilding() tooltip="Add Apartment Building"><i class="fas fa-plus"></i></button>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Street Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Room Number</th>
+                <th>Rent Cost</th>
+                <th>Security Deposit</th>
+                <th>Available</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let building of buildings">
+            <td (click)="updateBuilding(building.id)"><i class="fas fa-edit" tooltip="Edit"></i></td>
+            <td (click)="deleteBuilding(building.id)"><i class="fas fa-trash-alt" tooltip="Delete"></i></td>
+            <td>{{ building.address.streetAddress }}</td>
+            <td>{{ building.address.city }}</td>
+            <td>{{ building.address.state }}</td>
+            <td>{{ building.address.zipCode }}</td>
+            <td>{{ building.roomNumber }}</td>
+            <td>{{ building.rentCost | currency:'USD':true }}</td>
+            <td>{{ building.securityDeposit | currency:'USD':true }}</td>
+            <td *ngIf="building.available == true"><i class="fas fa-check-circle"></i></td>
+            <td *ngIf="building.available == false"><i class="fas fa-times-circle"></i></td>
+        </tr>
+    </table>
+</div>

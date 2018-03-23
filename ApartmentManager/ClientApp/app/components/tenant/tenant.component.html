@@ -1,0 +1,36 @@
+﻿<h2>Tenant Information</h2>
+<button class="btn btn-primary" (click)=addTenant() tooltip="Add Tenant"><i class="fas fa-plus"></i></button>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th (click)="setOrder('tenant.person.firstName')">First Name</th>
+                <th (click)="setOrder('tenant.person.lastName')">Last Name</th>
+                <th (click)="setOrder('tenant.apartment.address.streetAddress')">Street Address</th>
+                <th (click)="setOrder('tenant.apartment.address.city')">City</th>
+                <th (click)="setOrder('tenant.apartment.address.state')">State</th>
+                <th (click)="setOrder('tenant.apartment.address.zipCode')">Zip</th>
+                <th (click)="setOrder('tenant.apartment.roomNumber')">Room Number</th>
+                <th (click)="setOrder('tenant.person.personContact.phoneNumber')">Phone Number</th>
+                <th (click)="setOrder('tenant.apartment.rentCost')">Rent Cost</th>
+                <th (click)="setOrder('tenant.apartment.securityDeposit')">Security Deposit</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let tenant of tenants | orderBy: order:reverse:'case-insensitive'">
+            <td (click)="updateTenant(tenant.id)"><i class="fas fa-edit" tooltip="Edit"></i></td>
+            <td (click)="deleteTenant(tenant.id)"><i class="fas fa-trash-alt" tooltip="Delete"></i></td>
+            <td>{{ tenant.person.firstName }}</td>
+            <td>{{ tenant.person.lastName }}</td>
+            <td>{{ tenant.apartment.address.streetAddress }}</td>
+            <td>{{ tenant.apartment.address.city }}</td>
+            <td>{{ tenant.apartment.address.state }}</td>
+            <td>{{ tenant.apartment.address.zipCode }}</td>
+            <td>{{ tenant.apartment.roomNumber }}</td>
+            <td>{{ tenant.person.personContact.phoneNumber | phone }}</td>
+            <td>{{ tenant.apartment.rentCost | currency:'USD':true }}</td>
+            <td>{{ tenant.apartment.securityDeposit | currency:'USD':true }}</td>
+        </tr>
+    </table>
+</div>

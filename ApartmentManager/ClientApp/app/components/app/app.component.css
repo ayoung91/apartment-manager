@@ -4,3 +4,15 @@
         padding-top: 50px;
     }
 }
+
+.fa-edit {
+    color: teal;
+}
+
+.fa-trash-alt, .fa-times-circle {
+    color: red;
+}
+
+.fa-check-circle {
+    color: green;
+}
