@@ -40,7 +40,6 @@ import { PhonePipe } from './filters/phone.filter';
         ReactiveFormsModule,
         BootstrapModalModule,
         TooltipModule.forRoot(),
-        NgxPhoneMaskModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

@@ -14,7 +14,7 @@ namespace Components.Data.DataContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=M5L0LKC2;Database=ApartmentManagement;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=MCX-YOUNGA;Database=ApartmentManager;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace Components.Data.DataContext
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.Apartment)
                     .HasForeignKey(d => d.AddressId)
-                    .HasConstraintName("FK__Apartment__Addre__182C9B23");
+                    .HasConstraintName("FK__Apartment__Addre__398D8EEE");
             });
 
             modelBuilder.Entity<Payment>(entity =>
@@ -58,7 +58,7 @@ namespace Components.Data.DataContext
                 entity.HasOne(d => d.Apartment)
                     .WithMany(p => p.Payment)
                     .HasForeignKey(d => d.ApartmentId)
-                    .HasConstraintName("FK__Payment__Apartme__21B6055D");
+                    .HasConstraintName("FK__Payment__Apartme__3C69FB99");
             });
 
             modelBuilder.Entity<Person>(entity =>
@@ -80,7 +80,7 @@ namespace Components.Data.DataContext
 
                 entity.HasOne(d => d.Person)
                     .WithOne(p => p.PersonContact)
-                    .HasConstraintName("FK__PersonCon__Perso__145C0A3F");
+                    .HasConstraintName("FK__PersonCon__Perso__412EB0B6");
             });
 
             modelBuilder.Entity<Tenant>(entity =>
@@ -88,12 +88,12 @@ namespace Components.Data.DataContext
                 entity.HasOne(d => d.Apartment)
                     .WithMany(p => p.Tenant)
                     .HasForeignKey(d => d.ApartmentId)
-                    .HasConstraintName("FK__Tenant__Apartmen__1ED998B2");
+                    .HasConstraintName("FK__Tenant__Apartmen__440B1D61");
 
                 entity.HasOne(d => d.Person)
                     .WithMany(p => p.Tenant)
                     .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK__Tenant__PersonId__1DE57479");
+                    .HasConstraintName("FK__Tenant__PersonId__44FF419A");
             });
         }
     }

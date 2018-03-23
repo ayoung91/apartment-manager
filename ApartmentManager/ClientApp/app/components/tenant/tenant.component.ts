@@ -5,7 +5,6 @@ import { Http } from '@angular/http';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { BuildingService } from '../../services/building.service';
-import { OrderPipe } from 'ngx-order-pipe';
 
 export class TenantModel {
     id: any = 0;
@@ -35,19 +34,9 @@ export class TenantComponent {
     tenantInfo: any;
     allApartments: any;
     availableRooms: any;
-    order: string = 'tenant.person.firstName';
-    reverse: boolean = false;
-    sortedCollection: any[];
 
-    constructor(private tenantService: TenantService, private buildingService: BuildingService, private dialogService: DialogService, private orderPipe: OrderPipe) {
-        this.sortedCollection = orderPipe.transform(this.tenants, 'tenant.person.firstName');
-    }
-
-    setOrder(value: string) {
-        if (this.order === value) {
-            this.reverse = !this.reverse;
-        }
-        this.order = value;
+    constructor(private tenantService: TenantService, private buildingService: BuildingService, private dialogService: DialogService) {
+        
     }
 
     public ngOnInit(): void {

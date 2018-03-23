@@ -6,19 +6,19 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th (click)="setOrder('tenant.person.firstName')">First Name</th>
-                <th (click)="setOrder('tenant.person.lastName')">Last Name</th>
-                <th (click)="setOrder('tenant.apartment.address.streetAddress')">Street Address</th>
-                <th (click)="setOrder('tenant.apartment.address.city')">City</th>
-                <th (click)="setOrder('tenant.apartment.address.state')">State</th>
-                <th (click)="setOrder('tenant.apartment.address.zipCode')">Zip</th>
-                <th (click)="setOrder('tenant.apartment.roomNumber')">Room Number</th>
-                <th (click)="setOrder('tenant.person.personContact.phoneNumber')">Phone Number</th>
-                <th (click)="setOrder('tenant.apartment.rentCost')">Rent Cost</th>
-                <th (click)="setOrder('tenant.apartment.securityDeposit')">Security Deposit</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Room Number</th>
+                <th>Phone Number</th>
+                <th>Rent Cost</th>
+                <th>Security Deposit</th>
             </tr>
         </thead>
-        <tr *ngFor="let tenant of tenants | orderBy: order:reverse:'case-insensitive'">
+        <tr *ngFor="let tenant of tenants">
             <td (click)="updateTenant(tenant.id)"><i class="fas fa-edit" tooltip="Edit"></i></td>
             <td (click)="deleteTenant(tenant.id)"><i class="fas fa-trash-alt" tooltip="Delete"></i></td>
             <td>{{ tenant.person.firstName }}</td>
