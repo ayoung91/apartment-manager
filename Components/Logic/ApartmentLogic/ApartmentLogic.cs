@@ -1,5 +1,6 @@
 ﻿using Components.Data;
 using Components.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Components.Logic
@@ -9,6 +10,11 @@ namespace Components.Logic
         public List<Apartment> GetApartments()
         {
             return new ApartmentData().GetApartments();
+        }
+
+        public List<Apartment> GetAvailableApartments(int id)
+        {
+            return new ApartmentData().GetAvailableApartments(id);
         }
 
         public void AddApartment(Apartment apartment)

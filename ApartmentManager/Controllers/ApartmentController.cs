@@ -14,6 +14,12 @@ namespace ApartmentManager.Controllers
             return new ApartmentLogic().GetApartments();
         }
 
+        [HttpGet("[action]")]
+        public List<Apartment> GetAvailableApartments(int id)
+        {
+            return new ApartmentLogic().GetAvailableApartments(id);
+        }
+
         [HttpPost("[action]")]
         public void AddApartment([FromBody] Apartment apartment)
         {

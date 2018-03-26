@@ -71,7 +71,7 @@ export class BuildingComponent {
     }
 
     getBuildings() {
-        this.buildingService.GetApartments()
+        this.buildingService.GetAllApartments()
             .then(response => {
                 this.buildings = response;
                 console.log(this.buildings);

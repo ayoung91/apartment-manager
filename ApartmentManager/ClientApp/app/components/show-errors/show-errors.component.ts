@@ -20,7 +20,7 @@ export class ShowErrorsComponent {
     };
 
     @Input()
-    private control: any;/*AbstractControlDirective | AbstractControl;*/
+    private control: any;
     shouldShowErrors(): boolean {
         return this.control &&
             this.control.errors &&

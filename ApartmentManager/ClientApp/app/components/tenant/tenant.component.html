@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tr *ngFor="let tenant of tenants">
-            <td (click)="updateTenant(tenant.id)"><i class="fas fa-edit" tooltip="Edit"></i></td>
+            <td (click)="updateTenant(tenant.id, tenant.apartment.id)"><i class="fas fa-edit" tooltip="Edit"></i></td>
             <td (click)="deleteTenant(tenant.id)"><i class="fas fa-trash-alt" tooltip="Delete"></i></td>
             <td>{{ tenant.person.firstName }}</td>
             <td>{{ tenant.person.lastName }}</td>

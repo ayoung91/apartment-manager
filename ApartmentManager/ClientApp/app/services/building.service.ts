@@ -11,8 +11,16 @@ export class BuildingService {
 
     constructor(private http: Http) { }
 
-    public GetApartments() {
+    public GetAllApartments() {
         return this.http.get(this.url + 'api/Apartment/GetApartments').toPromise()
+            .then(response => response.json());
+    }
+
+    public GetAvailableApartments(buildingId: any) {
+        let params = new URLSearchParams();
+        params.set('id', buildingId);
+
+        return this.http.get(this.url + 'api/Apartment/GetAvailableApartments', { params: params }).toPromise()
             .then(response => response.json());
     }
 

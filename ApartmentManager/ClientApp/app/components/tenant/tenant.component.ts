@@ -32,8 +32,6 @@ export class TenantComponent {
     tenant: any = new TenantModel();
     tenants: any;
     tenantInfo: any;
-    allApartments: any;
-    availableRooms: any;
 
     constructor(private tenantService: TenantService, private buildingService: BuildingService, private dialogService: DialogService) {
         
@@ -41,30 +39,35 @@ export class TenantComponent {
 
     public ngOnInit(): void {
         this.getTenants();
-        this.availableRooms = this.getAvailableRooms();
     }
 
     addTenant() {
-        let disposable = this.dialogService.addDialog(TenantInfoComponent, {
-            title: 'Add New Tenant',
-            tenantInfo: this.tenant,
-            availableRooms: this.availableRooms
-        })
-            .subscribe((isConfirmed) => {
-                location.reload();
-            });
+        this.buildingService.GetAvailableApartments(0)
+            .then(response => {
+                let disposable = this.dialogService.addDialog(TenantInfoComponent, {
+                    title: 'Add New Tenant',
+                    tenantInfo: this.tenant,
+                    availableRooms: response
+                })
+                    .subscribe((isConfirmed) => {
+                        location.reload();
+                    });
+            })       
     }
 
-    updateTenant(id: number) {
-        this.tenantInfo = this.tenants.filter((t: any) => t.id == id)[0];
-        let disposable = this.dialogService.addDialog(TenantInfoComponent, {
-            title: 'Update Tenant',
-            tenantInfo: this.tenantInfo,
-            availableRooms: this.availableRooms
-        })
-            .subscribe((isConfirmed) => {
-                location.reload();
-            });
+    updateTenant(tenantId: number, apartmentId: number) {
+        this.buildingService.GetAvailableApartments(apartmentId)
+            .then(response => {
+                this.tenantInfo = this.tenants.filter((t: any) => t.id == tenantId)[0];
+                let disposable = this.dialogService.addDialog(TenantInfoComponent, {
+                    title: 'Update Tenant',
+                    tenantInfo: this.tenantInfo,
+                    availableRooms: response
+                })
+                    .subscribe((isConfirmed) => {
+                        location.reload();
+                    });
+            })
     }
 
     deleteTenant(id: number) {
@@ -83,14 +86,6 @@ export class TenantComponent {
         this.tenantService.GetTenants()
             .then(response => {
                 this.tenants = response;
-            })
-    }
-
-    getAvailableRooms() {
-        this.buildingService.GetApartments()
-            .then(response => {
-                this.allApartments = response;
-                this.availableRooms = this.allApartments.filter((a: any) => a.available == true);
             })
     }
 }

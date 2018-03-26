@@ -26,7 +26,7 @@ namespace Components.Logic
         public void DeleteTenant(Tenant tenant)
         {
             tenant.Active = false;
-            tenant.Apartment = null;
+            tenant.Apartment.Available = true;
             tenant.ApartmentId = null;
             new TenantData().UpdateTenant(tenant);
         }

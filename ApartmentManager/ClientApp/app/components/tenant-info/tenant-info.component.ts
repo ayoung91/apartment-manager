@@ -26,12 +26,12 @@ export class TenantInfoComponent extends DialogComponent<NewTenantModel, boolean
     }
 
     ngOnInit() {
-        console.log(this.availableRooms);
+        this.selectedRoom = this.availableRooms[0].id;
         this.tenantInfoForm = new FormGroup({
             'First_Name': new FormControl(this.tenantInfo.person.firstName, [Validators.required]),
             'Last_Name': new FormControl(this.tenantInfo.person.lastName, [Validators.required]),
             'Apartment': new FormControl(this.selectedRoom, [Validators.required]),
-            'Phone_Number': new FormControl(this.tenantInfo.person.personContact.phoneNumber, [Validators.minLength(14), Validators.required]),
+            'Phone_Number': new FormControl(this.tenantInfo.person.personContact.phoneNumber, [Validators.required]),
         });
     }
 

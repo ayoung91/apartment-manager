@@ -18,6 +18,7 @@ namespace Components.Data
                         .ThenInclude(pc => pc.PersonContact)
                     .Include(a => a.Apartment)
                         .ThenInclude(ad => ad.Address)
+                    .OrderBy(o => o.Person.LastName)
                     .ToList();
 
                 return tenants;
