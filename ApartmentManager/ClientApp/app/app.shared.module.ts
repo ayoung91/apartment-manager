@@ -19,6 +19,8 @@ import { ShowErrorsComponent } from './components/show-errors/show-errors.compon
 
 import { PhonePipe } from './filters/phone.filter';
 
+import { PhoneMask } from './masks/phone.mask';
+
 
 @NgModule({
     declarations: [
@@ -31,7 +33,8 @@ import { PhonePipe } from './filters/phone.filter';
         BuildingInfoComponent,
         ConfirmDialogComponent,
         ShowErrorsComponent,
-        PhonePipe
+        PhonePipe,
+        PhoneMask
     ],
     imports: [
         CommonModule,

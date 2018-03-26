@@ -31,7 +31,7 @@ export class TenantInfoComponent extends DialogComponent<NewTenantModel, boolean
             'First_Name': new FormControl(this.tenantInfo.person.firstName, [Validators.required]),
             'Last_Name': new FormControl(this.tenantInfo.person.lastName, [Validators.required]),
             'Apartment': new FormControl(this.selectedRoom, [Validators.required]),
-            'Phone_Number': new FormControl(this.tenantInfo.person.personContact.phoneNumber, [Validators.maxLength(10), Validators.minLength(10), Validators.required]),
+            'Phone_Number': new FormControl(this.tenantInfo.person.personContact.phoneNumber, [Validators.minLength(14), Validators.required]),
         });
     }
 
