@@ -10,20 +10,18 @@
                 <th>Room Number</th>
                 <th>Rent Cost</th>
                 <th>Amount Paid</th>
-                <th>Payment Date</th>
                 <th>Balance</th>
             </tr>
         </thead>
         <tr *ngFor="let record of payments">
-            <td (click)="updatePayment(payment.id)"><i class="fas fa-dollar-sign" tooltip="Update Payment"></i></td>
+            <td (click)="updatePayment(record.id)"><i class="fas fa-dollar-sign" tooltip="Update Payment"></i></td>
             <td>{{ record.tenant.person.firstName }}</td>
             <td>{{ record.tenant.person.lastName }}</td>
             <td>{{ record.tenant.apartment.address.streetAddress }}</td>
             <td>{{ record.tenant.apartment.roomNumber }}</td>
             <td>{{ record.tenant.apartment.rentCost | currency:'USD':true }}</td>
-            <td>{{ record.payment.amount | currency:'USD':true }}</td>
-            <td>{{ record.payment.date | date:'shortDate' }}</td>
-            <td>{{ record.payment.balance | currency:'USD':true }}</td>
+            <td>{{ record.payment.amount | currency:'usd':true }}</td>
+            <td>{{ record.payment.balance | currency:'usd':true }}</td>
         </tr>
     </table>
 </div>

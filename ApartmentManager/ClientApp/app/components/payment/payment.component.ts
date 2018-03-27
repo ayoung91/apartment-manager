@@ -2,27 +2,35 @@
 import { Http } from '@angular/http';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { PaymentService } from '../../services/payment.service';
+import { PaymentInfoComponent } from '../payment-info/payment-info.component';
 
 export class PaymentModel {
     id: any = 0;
-    person: any = {
-        firstName: '',
-        lastName: ''
-    };
-    apartment: any = {
-        address: {
-            streetAddress: '',
-            city: '',
-            state: '',
-            zipCode: ''
+    tenant: any = {
+        person: {
+            firstName: '',
+            lastName: ''
         },
-        rentCost: 0,
-        securityDeposit: 0,
-        roomNumber: '',
-        available: 0
+        apartment: {
+            address: {
+                streetAddress: '',
+                city: '',
+                state: '',
+                zipCode: ''
+            },
+            rentCost: 0,
+            securityDeposit: 0,
+            roomNumber: '',
+            available: 0
+        }
     };
-    date: any;
-    amount: any;    
+    payment: any = {
+        id: '',
+        date: new Date(),
+        amount: '',
+        balance: ''
+    }
+     
 }
 
 @Component({
@@ -33,7 +41,7 @@ export class PaymentModel {
 })
 
 export class PaymentComponent {
-    payments: any;
+    payments = new Array<PaymentModel>();
     payment: any = new PaymentModel();
     paymentInfo: any;
 
@@ -49,6 +57,17 @@ export class PaymentComponent {
                 this.payments = response;
                 console.log(this.payments);
             })
+    }
+
+    updatePayment(id: any) {
+        this.payment = this.payments.filter((p: any) => p.id == id)[0];
+        let disposable = this.dialogService.addDialog(PaymentInfoComponent, {
+            title: 'Add New Payment',
+            paymentInfo: this.payment
+        })
+            .subscribe((isConfirmed) => {
+                location.reload();
+            });
     }
 }
 

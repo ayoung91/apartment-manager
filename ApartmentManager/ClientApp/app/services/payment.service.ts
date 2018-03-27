@@ -15,4 +15,14 @@ export class PaymentService {
         return this.http.get(this.url + 'api/Payment/GetPayments').toPromise()
             .then(response => response.json());
     }
+
+    public AddNewPayment(payment: any) {
+        return this.http.post(this.url + 'api/Payment/AddPayment', JSON.stringify(payment), { headers: this.Headers }).toPromise()
+            .then(response => response.json());
+    }
+
+    public UpdatePayment(payment: any) {
+        return this.http.post(this.url + 'api/Payment/UpdatePayment', JSON.stringify(payment), { headers: this.Headers }).toPromise()
+            .then(response => response.json());
+    }
 }

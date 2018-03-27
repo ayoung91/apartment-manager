@@ -33,7 +33,6 @@ namespace Components.Data
                 tenant.Apartment = db.Apartment.Find(tenant.Apartment.Id);
                 tenant.Apartment.Available = false;
                 db.Tenant.Add(tenant);
-                db.SaveChanges();
 
                 var tenantPayment = new TenantPayment() { TenantId = tenant.Id };
                 db.TenantPayment.Add(tenantPayment);

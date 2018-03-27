@@ -1,0 +1,38 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="close()">&times;</button>
+            <h4 class="modal-title">{{ title }}</h4>
+        </div>
+        <div class="modal-body">
+            <div id="tenant-info">
+                <p>Tenant: {{ paymentInfo.tenant.person.firstName }} {{ paymentInfo.tenant.person.lastName }}</p>
+                <p>Address: {{ paymentInfo.tenant.apartment.address.streetAddress }}, {{ paymentInfo.tenant.apartment.roomNumber }}</p>
+            </div>
+            <form [formGroup]="paymentInfoForm" (ngSubmit)="savePayment()">
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="Amount"
+                           placeholder="Enter Payment Amount"
+                           (input)="paymentInfo.payment.amount = $event.target.value">
+                    <show-errors [control]="paymentInfoForm.controls.Amount"></show-errors>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Payment Date</label>
+                    <input type="text" class="form-control"
+                        bsDatepicker
+                        formControlName="Payment_Date"
+                        [maxDate]="todaysDate"
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-dark-blue' }"
+                        placeholder="Enter Payment Date"
+                        [(bsValue)]="paymentInfo.payment.date" value="{{ paymentInfo.payment.date | date: 'MM/dd/yyyy' }}">
+                    <show-errors [control]="paymentInfoForm.controls.Payment_Date"></show-errors>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!paymentInfoForm.valid">Submit</button>
+                <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

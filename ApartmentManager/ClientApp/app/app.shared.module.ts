@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 import { AppComponent } from './components/app/app.component';
@@ -15,6 +16,7 @@ import { TenantInfoComponent } from './components/tenant-info/tenant-info.compon
 import { BuildingComponent } from './components/building/building.component';
 import { BuildingInfoComponent } from './components/building-info/building-info.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ShowErrorsComponent } from './components/show-errors/show-errors.component';
 
@@ -33,6 +35,7 @@ import { PhoneMask } from './masks/phone.mask';
         BuildingComponent,
         BuildingInfoComponent,
         PaymentComponent,
+        PaymentInfoComponent,
         ConfirmDialogComponent,
         ShowErrorsComponent,
         PhonePipe,
@@ -45,6 +48,7 @@ import { PhoneMask } from './masks/phone.mask';
         ReactiveFormsModule,
         BootstrapModalModule,
         TooltipModule.forRoot(),
+        BsDatepickerModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -57,6 +61,7 @@ import { PhoneMask } from './masks/phone.mask';
     entryComponents: [
         TenantInfoComponent,
         BuildingInfoComponent,
+        PaymentInfoComponent,
         ConfirmDialogComponent,
     ],
     bootstrap: [AppComponent]

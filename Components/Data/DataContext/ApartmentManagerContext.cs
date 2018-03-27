@@ -54,6 +54,8 @@ namespace Components.Data.DataContext
                 entity.Property(e => e.Amount).HasColumnType("decimal(6, 2)");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Ignore(e => e.Balance);
             });
 
             modelBuilder.Entity<Person>(entity =>

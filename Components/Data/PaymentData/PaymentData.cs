@@ -24,5 +24,30 @@ namespace Components.Data
                 return payments;
             }
         }
+
+        public void AddPayment(TenantPayment payment)
+        {
+            using (var db = new ApartmentManagerContext())
+            {
+                payment.Tenant.Apartment.Address = db.Address.Find(payment.Tenant.Apartment.Address.Id);
+                payment.Tenant.Apartment = db.Apartment.Find(payment.Tenant.Apartment.Id);
+                payment.Tenant = db.Tenant.Find(payment.Tenant.Id);
+
+                db.Payment.Add(payment.Payment);
+                db.TenantPayment.Update(payment);
+                db.SaveChanges();
+
+            }
+        }
+
+        public void UpdatePayment(TenantPayment payment)
+        {
+            using (var db = new ApartmentManagerContext())
+            {
+                db.Payment.Update(payment.Payment);
+                db.SaveChanges();
+
+            }
+        }
     }
 }

@@ -13,5 +13,17 @@ namespace ApartmentManagement.Controllers
         {
             return new PaymentLogic().GetPayments();
         }
+
+        [HttpPost("[action]")]
+        public void AddPayment([FromBody]TenantPayment payment)
+        {
+            new PaymentLogic().AddPayment(payment);
+        }
+
+        [HttpPost("[action]")]
+        public void UpdatePayment([FromBody]TenantPayment payment)
+        {
+            new PaymentLogic().UpdatePayment(payment);
+        }
     }
 }
