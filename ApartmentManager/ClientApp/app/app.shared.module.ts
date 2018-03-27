@@ -14,6 +14,7 @@ import { TenantComponent } from './components/tenant/tenant.component';
 import { TenantInfoComponent } from './components/tenant-info/tenant-info.component';
 import { BuildingComponent } from './components/building/building.component';
 import { BuildingInfoComponent } from './components/building-info/building-info.component';
+import { PaymentComponent } from './components/payment/payment.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ShowErrorsComponent } from './components/show-errors/show-errors.component';
 
@@ -31,6 +32,7 @@ import { PhoneMask } from './masks/phone.mask';
         TenantInfoComponent,
         BuildingComponent,
         BuildingInfoComponent,
+        PaymentComponent,
         ConfirmDialogComponent,
         ShowErrorsComponent,
         PhonePipe,
@@ -48,6 +50,7 @@ import { PhoneMask } from './masks/phone.mask';
             { path: 'home', component: HomeComponent },
             { path: 'tenant', component: TenantComponent },
             { path: 'building', component: BuildingComponent },
+            { path: 'payment', component: PaymentComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

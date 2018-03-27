@@ -6,7 +6,6 @@ namespace Components.Entities
     {
         public Apartment()
         {
-            Payment = new HashSet<Payment>();
             Tenant = new HashSet<Tenant>();
         }
 
@@ -19,7 +18,6 @@ namespace Components.Entities
         public bool Active { get; set; }
 
         public Address Address { get; set; }
-        public ICollection<Payment> Payment { get; set; }
         public ICollection<Tenant> Tenant { get; set; }
     }
 }

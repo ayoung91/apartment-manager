@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Components.Entities
 {
@@ -7,14 +6,11 @@ namespace Components.Entities
     {
         public Person()
         {
-            PersonContact = new PersonContact();
             Tenant = new HashSet<Tenant>();
         }
 
         public int Id { get; set; }
-        [Required]
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
 
         public PersonContact PersonContact { get; set; }

@@ -32,7 +32,11 @@ namespace Components.Data
                 tenant.Apartment.Address = db.Address.Find(tenant.Apartment.Address.Id);
                 tenant.Apartment = db.Apartment.Find(tenant.Apartment.Id);
                 tenant.Apartment.Available = false;
-                var record = db.Tenant.Add(tenant);
+                db.Tenant.Add(tenant);
+                db.SaveChanges();
+
+                var tenantPayment = new TenantPayment() { TenantId = tenant.Id };
+                db.TenantPayment.Add(tenantPayment);
                 db.SaveChanges();
             }
         }
@@ -41,7 +45,7 @@ namespace Components.Data
         {
             using (var db = new ApartmentManagerContext())
             {
-                var record = db.Tenant.Update(tenant);
+                db.Tenant.Update(tenant);
                 db.SaveChanges();
             }
         }

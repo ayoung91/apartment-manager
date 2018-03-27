@@ -11,6 +11,7 @@ namespace Components.Data.DataContext
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<PersonContact> PersonContact { get; set; }
         public virtual DbSet<Tenant> Tenant { get; set; }
+        public virtual DbSet<TenantPayment> TenantPayment { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,8 +46,7 @@ namespace Components.Data.DataContext
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.Apartment)
-                    .HasForeignKey(d => d.AddressId)
-                    .HasConstraintName("FK__Apartment__Addre__398D8EEE");
+                    .HasForeignKey(d => d.AddressId);
             });
 
             modelBuilder.Entity<Payment>(entity =>
@@ -54,11 +54,6 @@ namespace Components.Data.DataContext
                 entity.Property(e => e.Amount).HasColumnType("decimal(6, 2)");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Apartment)
-                    .WithMany(p => p.Payment)
-                    .HasForeignKey(d => d.ApartmentId)
-                    .HasConstraintName("FK__Payment__Apartme__3C69FB99");
             });
 
             modelBuilder.Entity<Person>(entity =>
@@ -79,21 +74,29 @@ namespace Components.Data.DataContext
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Person)
-                    .WithOne(p => p.PersonContact)
-                    .HasConstraintName("FK__PersonCon__Perso__412EB0B6");
+                    .WithOne(p => p.PersonContact);
             });
 
             modelBuilder.Entity<Tenant>(entity =>
             {
                 entity.HasOne(d => d.Apartment)
                     .WithMany(p => p.Tenant)
-                    .HasForeignKey(d => d.ApartmentId)
-                    .HasConstraintName("FK__Tenant__Apartmen__440B1D61");
+                    .HasForeignKey(d => d.ApartmentId);
 
                 entity.HasOne(d => d.Person)
                     .WithMany(p => p.Tenant)
-                    .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK__Tenant__PersonId__44FF419A");
+                    .HasForeignKey(d => d.PersonId);
+            });
+
+            modelBuilder.Entity<TenantPayment>(entity =>
+            {
+                entity.HasOne(d => d.Payment)
+                    .WithMany(p => p.TenantPayment)
+                    .HasForeignKey(d => d.PaymentId);
+
+                entity.HasOne(d => d.Tenant)
+                    .WithMany(p => p.TenantPayment)
+                    .HasForeignKey(d => d.TenantId);
             });
         }
     }
