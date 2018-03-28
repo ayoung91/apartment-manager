@@ -5,11 +5,15 @@
             <h4 class="modal-title">{{ title }}</h4>
         </div>
         <div class="modal-body">
-            <div id="tenant-info">
-                <p>Tenant: {{ paymentInfo.tenant.person.firstName }} {{ paymentInfo.tenant.person.lastName }}</p>
-                <p>Address: {{ paymentInfo.tenant.apartment.address.streetAddress }}, {{ paymentInfo.tenant.apartment.roomNumber }}</p>
-            </div>
             <form [formGroup]="paymentInfoForm" (ngSubmit)="savePayment()">
+                <div class="form-group">
+                    <label for="apartment">Tenant</label>
+                    <select class="form-control"
+                            formControlName="Tenant"
+                            (input)="selectedTenant = event.target.value">
+                        <option *ngFor="let tenant of tenants" [ngValue]="tenant.id">{{ tenant.person.lastName }}, {{ tenant.person.firstName }} ({{ tenant.apartment.address.streetAddress }}, {{ tenant.apartment.roomNumber }})</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="amount">Amount</label>
                     <input type="text"
@@ -22,12 +26,12 @@
                 <div class="form-group">
                     <label for="amount">Payment Date</label>
                     <input type="text" class="form-control"
-                        bsDatepicker
-                        formControlName="Payment_Date"
-                        [maxDate]="todaysDate"
-                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-dark-blue' }"
-                        placeholder="Enter Payment Date"
-                        [(bsValue)]="paymentInfo.payment.date" value="{{ paymentInfo.payment.date | date: 'MM/dd/yyyy' }}">
+                           bsDatepicker
+                           formControlName="Payment_Date"
+                           [maxDate]="todaysDate"
+                           [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', containerClass: 'theme-dark-blue' }"
+                           placeholder="Enter Payment Date"
+                           [(bsValue)]="paymentInfo.payment.date" value="{{ paymentInfo.payment.date | date: 'MM/dd/yyyy' }}">
                     <show-errors [control]="paymentInfoForm.controls.Payment_Date"></show-errors>
                 </div>
                 <button type="submit" class="btn btn-primary" [disabled]="!paymentInfoForm.valid">Submit</button>

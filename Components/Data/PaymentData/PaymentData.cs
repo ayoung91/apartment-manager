@@ -18,7 +18,12 @@ namespace Components.Data
                     .Include(t => t.Tenant)
                         .ThenInclude(a => a.Apartment)
                         .ThenInclude(ad => ad.Address)
+                        .Where(t => t.Tenant.Active == true)
                     .Include(p => p.Payment)
+                    .OrderBy(o => o.Tenant.Person.LastName)
+                    .ThenBy(o => o.Tenant.Person.FirstName)
+                    .ThenBy(o => o.Tenant.Apartment.Address.StreetAddress)
+                    .ThenBy(o => o.Tenant.Apartment.RoomNumber)
                     .ToList();
 
                 return payments;
@@ -46,7 +51,6 @@ namespace Components.Data
             {
                 db.Payment.Update(payment.Payment);
                 db.SaveChanges();
-
             }
         }
     }

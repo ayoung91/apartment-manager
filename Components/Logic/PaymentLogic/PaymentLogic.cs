@@ -2,6 +2,7 @@
 using Components.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Components.Logic
 {
@@ -10,15 +11,36 @@ namespace Components.Logic
         public List<TenantPayment> GetPayments()
         {
             var data = new PaymentData().GetPayments();
-            data.ForEach(record =>
-            {
-                if (record.Payment == null)
-                    record.Payment = new Payment();
 
-                record.Payment.Balance = Convert.ToDecimal(record.Tenant.Apartment.RentCost) - Convert.ToDecimal(record.Payment.Amount);
+            var tenants = data.GroupBy(p => p.TenantId).ToList();
+            var tenantPayments = new List<TenantPayment>();
+            tenants.ForEach(t =>
+            {
+                var payments = t.ToList();
+                var tenantPayment = new TenantPayment()
+                {
+                    Payment = new Payment() { Amount = 0, Balance = 0 },
+                    Tenant = new Tenant()
+                };
+                payments.ForEach(p =>
+                {
+                    if (p.Payment == null)
+                    {
+                        p.Payment = new Payment() { Amount = 0 };
+                    }
+
+                    tenantPayment.Tenant = p.Tenant;
+                    tenantPayment.Payment.Id = p.Payment.Id;
+                    tenantPayment.Payment.Amount += p.Payment.Amount;
+                });
+                tenantPayments.Add(tenantPayment);
+            });
+            tenantPayments.ForEach(tp =>
+            {
+                tp.Payment.Balance = Convert.ToDecimal(tp.Tenant.Apartment.RentCost) - tp.Payment.Amount;
             });
 
-            return data;
+            return tenantPayments;
         }
         public void AddPayment(TenantPayment payment)
         {

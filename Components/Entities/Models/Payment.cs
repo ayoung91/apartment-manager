@@ -13,7 +13,7 @@ namespace Components.Entities
         public int Id { get; set; }
         public DateTime? Date { get; set; }
         public decimal? Amount { get; set; }
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
 
         public ICollection<TenantPayment> TenantPayment { get; set; }
     }

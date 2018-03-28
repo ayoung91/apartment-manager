@@ -36,7 +36,7 @@ export class TenantInfoComponent extends DialogComponent<NewTenantModel, boolean
     }
 
     saveTenant() {
-        let room = this.tenantInfo.apartment = this.availableRooms.filter((a: any) => a.id == this.tenantInfoForm.controls['Apartment'].value)[0];
+        this.tenantInfo.apartment = this.availableRooms.filter((a: any) => a.id == this.tenantInfoForm.controls['Apartment'].value)[0];
         this.tenantInfo.person.personContact.phoneNumber = this.tenantInfo.person.personContact.phoneNumber.replace(/\D+/g, '');
 
         if (this.tenantInfo.id == 0)
