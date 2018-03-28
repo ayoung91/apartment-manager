@@ -7,15 +7,21 @@
         <div class="modal-body">
             <form [formGroup]="paymentInfoForm" (ngSubmit)="savePayment()">
                 <div class="form-group">
-                    <label for="apartment">Tenant</label>
-                    <select class="form-control"
-                            formControlName="Tenant"
-                            (input)="selectedTenant = event.target.value">
+                    <label>Tenant</label>
+                    <select class="form-control" formControlName="Tenant">
                         <option *ngFor="let tenant of tenants" [ngValue]="tenant.id">{{ tenant.person.lastName }}, {{ tenant.person.firstName }} ({{ tenant.apartment.address.streetAddress }}, {{ tenant.apartment.roomNumber }})</option>
                     </select>
+                    <show-errors [control]="paymentInfoForm.controls.Tenant"></show-errors>
                 </div>
                 <div class="form-group">
-                    <label for="amount">Amount</label>
+                    <label>Payment Method</label>
+                    <select class="form-control" formControlName="Payment_Method">
+                        <option *ngFor="let paymentMethod of paymentMethods" [ngValue]="paymentMethod.id">{{ paymentMethod.method }}</option>
+                    </select>
+                    <show-errors [control]="paymentInfoForm.controls.Payment_Method"></show-errors>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
                     <input type="text"
                            class="form-control"
                            formControlName="Amount"
@@ -24,7 +30,7 @@
                     <show-errors [control]="paymentInfoForm.controls.Amount"></show-errors>
                 </div>
                 <div class="form-group">
-                    <label for="amount">Payment Date</label>
+                    <label>Payment Date</label>
                     <input type="text" class="form-control"
                            bsDatepicker
                            formControlName="Payment_Date"

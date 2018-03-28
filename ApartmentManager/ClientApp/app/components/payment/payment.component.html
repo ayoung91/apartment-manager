@@ -15,7 +15,10 @@
             </tr>
         </thead>
         <tr *ngFor="let record of payments">
-            <td (click)="updatePayment(record.id)"><i class="fas fa-dollar-sign" tooltip="Update Payment"></i></td>
+            <td>
+                <i class="fas fa-dollar-sign" (click)="getPaymentHistory(record.tenant.id)" tooltip="View Payment History"></i>
+                <i *ngIf="record.payment.balance > 0" class="fas fa-exclamation-triangle" tooltip="Past Due"></i>
+            </td>
             <td>{{ record.tenant.person.firstName }}</td>
             <td>{{ record.tenant.person.lastName }}</td>
             <td>{{ record.tenant.apartment.address.streetAddress }}</td>

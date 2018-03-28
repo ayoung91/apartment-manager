@@ -1,6 +1,5 @@
 ﻿using Components.Data;
 using Components.Entities;
-using System;
 using System.Collections.Generic;
 
 namespace Components.Logic
@@ -26,7 +25,6 @@ namespace Components.Logic
 
         public void UpdateApartment(Apartment apartment)
         {
-            apartment.Available = true;
             apartment.Active = true;
             new ApartmentData().UpdateApartment(apartment);
         }

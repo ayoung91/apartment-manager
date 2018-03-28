@@ -42,6 +42,17 @@ namespace Components.Logic
 
             return tenantPayments;
         }
+
+        public List<PaymentMethod> GetPaymentMethods()
+        {
+            return new PaymentData().GetPaymentMethods();
+        }
+
+        public List<TenantPayment> GetPaymentHistory(int id)
+        {
+            return new PaymentData().GetPaymentHistory(id);
+        }
+
         public void AddPayment(TenantPayment payment)
         {
             new PaymentData().AddPayment(payment);

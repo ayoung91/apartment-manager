@@ -29,6 +29,30 @@ namespace Components.Data
                 return payments;
             }
         }
+        public List<PaymentMethod> GetPaymentMethods()
+        {
+            using (var db = new ApartmentManagerContext())
+            {
+                var paymentMethods = db.PaymentMethod
+                    .ToList();
+
+                return paymentMethods;
+            }
+        }
+
+        public List<TenantPayment> GetPaymentHistory(int id)
+        {
+            using (var db = new ApartmentManagerContext())
+            {
+                var payments = db.TenantPayment
+                    .Include(tp => tp.Payment)
+                        .ThenInclude(pm => pm.PaymentMethod)
+                    .Where(w => w.TenantId == id && w.Payment != null)
+                    .ToList();
+
+                return payments;
+            }
+        }
 
         public void AddPayment(TenantPayment payment)
         {
@@ -37,6 +61,7 @@ namespace Components.Data
                 payment.Tenant.Apartment.Address = db.Address.Find(payment.Tenant.Apartment.Address.Id);
                 payment.Tenant.Apartment = db.Apartment.Find(payment.Tenant.Apartment.Id);
                 payment.Tenant = db.Tenant.Find(payment.Tenant.Id);
+                payment.Payment.PaymentMethod = db.PaymentMethod.Find(payment.Payment.PaymentMethod.Id);
 
                 db.Payment.Add(payment.Payment);
                 db.TenantPayment.Update(payment);

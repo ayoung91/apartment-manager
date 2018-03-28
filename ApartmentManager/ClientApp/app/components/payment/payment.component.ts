@@ -2,8 +2,9 @@
 import { Http } from '@angular/http';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { PaymentService } from '../../services/payment.service';
-import { PaymentInfoComponent } from '../payment-info/payment-info.component';
+import { PaymentNewComponent } from '../payment-new/payment-new.component';
 import { TenantService } from '../../services/tenant.service';
+import { PaymentHistoryComponent } from '../payment-history/payment-history.component';
 
 export class PaymentModel {
     id: any = 0;
@@ -30,9 +31,12 @@ export class PaymentModel {
         id: 0,
         date: new Date(),
         amount: '',
-        balance: ''
-    }
-     
+        balance: '',
+        paymentMethod: {
+            id: '',
+            method: ''
+        }
+    };
 }
 
 @Component({
@@ -46,6 +50,7 @@ export class PaymentComponent {
     payments = new Array<PaymentModel>();
     payment: any = new PaymentModel();
     paymentInfo: any;
+    tenant: any;
 
     constructor(private paymentService: PaymentService, private tenantService: TenantService, private dialogService: DialogService) { }
 
@@ -61,18 +66,21 @@ export class PaymentComponent {
             })
     }
 
-    addPayment() {
-        this.tenantService.GetTenants()
-            .then(response => {
-                let disposable = this.dialogService.addDialog(PaymentInfoComponent, {
-                    title: 'Add New Payment',
-                    paymentInfo: this.payment,
-                    tenants: response
-                })
-                    .subscribe((isConfirmed) => {
-                        location.reload();
-                    });
-            })
+    addPayment() {        
+        let disposable = this.dialogService.addDialog(PaymentNewComponent, {
+            title: 'Add New Payment',
+            paymentInfo: this.payment
+        })
+            .subscribe((isConfirmed) => {
+                location.reload();
+            });
+    }
+
+    getPaymentHistory(id: any) {
+        let disposable = this.dialogService.addDialog(PaymentHistoryComponent, {
+            title: 'Payment History',
+            tenantId: id
+        })
     }
 
     //updatePayment(id: any) {

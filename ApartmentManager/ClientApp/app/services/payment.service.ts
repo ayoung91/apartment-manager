@@ -16,6 +16,19 @@ export class PaymentService {
             .then(response => response.json());
     }
 
+    public GetPaymentMethods() {
+        return this.http.get(this.url + 'api/Payment/GetPaymentMethods').toPromise()
+            .then(response => response.json());
+    }
+    
+    public GetPaymentHistory(id: any) {
+        let params = new URLSearchParams();
+        params.set('id', id);
+
+        return this.http.get(this.url + 'api/Payment/GetPaymentHistory', { params: params }).toPromise()
+            .then(response => response.json());
+    }
+
     public AddNewPayment(payment: any) {
         return this.http.post(this.url + 'api/Payment/AddPayment', JSON.stringify(payment), { headers: this.Headers }).toPromise()
             .then(response => response.json());

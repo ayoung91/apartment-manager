@@ -14,6 +14,18 @@ namespace ApartmentManagement.Controllers
             return new PaymentLogic().GetPayments();
         }
 
+        [HttpGet("[action]")]
+        public List<PaymentMethod> GetPaymentMethods()
+        {
+            return new PaymentLogic().GetPaymentMethods();
+        }
+
+        [HttpGet("[action]")]
+        public List<TenantPayment> GetPaymentHistory(int id)
+        {
+            return new PaymentLogic().GetPaymentHistory(id);
+        }
+
         [HttpPost("[action]")]
         public void AddPayment([FromBody]TenantPayment payment)
         {

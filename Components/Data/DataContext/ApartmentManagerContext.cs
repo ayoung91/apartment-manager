@@ -8,6 +8,7 @@ namespace Components.Data.DataContext
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Apartment> Apartment { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
+        public virtual DbSet<PaymentMethod> PaymentMethod { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<PersonContact> PersonContact { get; set; }
         public virtual DbSet<Tenant> Tenant { get; set; }
@@ -56,6 +57,17 @@ namespace Components.Data.DataContext
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Ignore(e => e.Balance);
+
+                entity.HasOne(d => d.PaymentMethod)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.PaymentMethodId);
+            });
+
+            modelBuilder.Entity<PaymentMethod>(entity =>
+            {
+                entity.Property(e => e.Method)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Person>(entity =>

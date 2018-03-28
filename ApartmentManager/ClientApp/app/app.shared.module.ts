@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 import { AppComponent } from './components/app/app.component';
@@ -16,7 +17,8 @@ import { TenantInfoComponent } from './components/tenant-info/tenant-info.compon
 import { BuildingComponent } from './components/building/building.component';
 import { BuildingInfoComponent } from './components/building-info/building-info.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import { PaymentInfoComponent } from './components/payment-info/payment-info.component';
+import { PaymentNewComponent } from './components/payment-new/payment-new.component';
+import { PaymentHistoryComponent } from './components/payment-history/payment-history.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ShowErrorsComponent } from './components/show-errors/show-errors.component';
 
@@ -35,7 +37,8 @@ import { PhoneMask } from './masks/phone.mask';
         BuildingComponent,
         BuildingInfoComponent,
         PaymentComponent,
-        PaymentInfoComponent,
+        PaymentNewComponent,
+        PaymentHistoryComponent,
         ConfirmDialogComponent,
         ShowErrorsComponent,
         PhonePipe,
@@ -49,6 +52,7 @@ import { PhoneMask } from './masks/phone.mask';
         BootstrapModalModule,
         TooltipModule.forRoot(),
         BsDatepickerModule.forRoot(),
+        TypeaheadModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -61,7 +65,8 @@ import { PhoneMask } from './masks/phone.mask';
     entryComponents: [
         TenantInfoComponent,
         BuildingInfoComponent,
-        PaymentInfoComponent,
+        PaymentNewComponent,
+        PaymentHistoryComponent,
         ConfirmDialogComponent,
     ],
     bootstrap: [AppComponent]
