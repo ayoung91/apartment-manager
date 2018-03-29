@@ -11,8 +11,10 @@ export class PaymentService {
 
     constructor(private http: Http) { }
 
-    public GetAllPayments() {
-        return this.http.get(this.url + 'api/Payment/GetPayments').toPromise()
+    public GetAllPayments(billingCycleId: any) {
+        let params = new URLSearchParams();
+        params.set('billingCycleId', billingCycleId);
+        return this.http.get(this.url + 'api/Payment/GetPayments', { params: params }).toPromise()
             .then(response => response.json());
     }
 

@@ -53,13 +53,13 @@ export class PaymentComponent {
     paymentInfo: any;
     tenant: any;
     billingCycles: any;
+    currentBillingCycle: any;
     selectedBillingCycle: any;
 
     constructor(private paymentService: PaymentService, private billingCycleService: BillingCycleService, private tenantService: TenantService, private dialogService: DialogService) { }
 
     public ngOnInit(): void {
         this.getBillingCycles();
-        this.getPayments();
     }
 
 
@@ -67,19 +67,22 @@ export class PaymentComponent {
         this.billingCycleService.GetBillingCycles()
             .then(response => {
                 this.billingCycles = response;
-                console.log(this.billingCycles);
+                this.currentBillingCycle = response[1];
+                this.getPayments(this.currentBillingCycle);
             });
     }
 
-    getPayments() {
-        this.paymentService.GetAllPayments()
+    getPayments(billingCycle: any) {
+        this.paymentService.GetAllPayments(billingCycle.id)
             .then(response => {
                 this.payments = response;
+                let poop = this.currentBillingCycle;
+                this.selectedBillingCycle = billingCycle;
                 console.log(this.payments);
             })
     }
 
-    addPayment() {        
+    addPayment() {
         let disposable = this.dialogService.addDialog(PaymentNewComponent, {
             title: 'Add New Payment',
             paymentInfo: this.payment
@@ -96,15 +99,12 @@ export class PaymentComponent {
         })
     }
 
-    //updatePayment(id: any) {
-    //    this.payment = this.payments.filter((p: any) => p.id == id)[0];
-    //    let disposable = this.dialogService.addDialog(PaymentInfoComponent, {
-    //        title: 'Add New Payment',
-    //        paymentInfo: this.payment
-    //    })
-    //        .subscribe((isConfirmed) => {
-    //            location.reload();
-    //        });
-    //}
+    isPastDue(tenant: any) {
+        if (tenant.payment.balance > 0 && this.selectedBillingCycle.id == this.currentBillingCycle.id) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
-

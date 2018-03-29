@@ -12,6 +12,7 @@ namespace Components.Data
             using (var db = new ApartmentManagerContext())
             {
                 var billingCycles = db.BillingCycle
+                    .OrderByDescending(o => o.Id)
                     .ToList();
 
                 return billingCycles;

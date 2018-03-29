@@ -1,10 +1,14 @@
 ﻿<h2>Payment Information</h2>
-<div>
-    <button class="btn btn-primary" (click)=addPayment() tooltip="Add Payment"><i class="fas fa-plus"></i></button>
-    <label>Tenant</label>
-    <select [(ngModel)]="selectedBillingCycle">
-        <option *ngFor="let billingCycle of billingCycles" [ngValue]="billingCycle.id">{{ billingCycle.billingMonth }} {{ billingCycle.billingYear }}</option>
-    </select>
+<div class="row">
+    <div class="col-md-6">
+        <button class="btn btn-primary" (click)=addPayment() tooltip="Add Payment"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="col-md-6">
+        <label for="billingCycle">Billing Cycle</label>
+        <select id="billingCycle" [(ngModel)]="currentBillingCycle" (ngModelChange)="getPayments($event)">
+            <option *ngFor="let billingCycle of billingCycles" [ngValue]="billingCycle">{{ billingCycle.billingMonth }} {{ billingCycle.billingYear }}</option>
+        </select>
+    </div>
 </div>
 <div>
     <table class="table table-striped">
@@ -23,7 +27,7 @@
         <tr *ngFor="let record of payments">
             <td>
                 <i class="fas fa-dollar-sign" (click)="getPaymentHistory(record.tenant.id)" tooltip="View Payment History"></i>
-                <i *ngIf="record.payment.balance > 0" class="fas fa-exclamation-triangle" tooltip="Past Due"></i>
+                <i *ngIf="isPastDue(record)" class="fas fa-exclamation-triangle" tooltip="Past Due"></i>
             </td>
             <td>{{ record.tenant.person.firstName }}</td>
             <td>{{ record.tenant.person.lastName }}</td>

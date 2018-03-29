@@ -9,9 +9,9 @@ namespace ApartmentManagement.Controllers
     public class PaymentController : Controller
     {
         [HttpGet("[action]")]
-        public List<TenantPayment> GetPayments()
+        public List<TenantPayment> GetPayments(int billingCycleId)
         {
-            return new PaymentLogic().GetPayments(3);
+            return new PaymentLogic().GetPayments(billingCycleId);
         }
 
         [HttpGet("[action]")]
