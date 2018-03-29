@@ -11,7 +11,7 @@ namespace ApartmentManagement.Controllers
         [HttpGet("[action]")]
         public List<TenantPayment> GetPayments()
         {
-            return new PaymentLogic().GetPayments();
+            return new PaymentLogic().GetPayments(3);
         }
 
         [HttpGet("[action]")]

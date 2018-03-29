@@ -8,9 +8,9 @@ namespace Components.Logic
 {
     public class PaymentLogic
     {
-        public List<TenantPayment> GetPayments()
+        public List<TenantPayment> GetPayments(int billingCycleId)
         {
-            var data = new PaymentData().GetPayments();
+            var data = new PaymentData().GetPayments(billingCycleId);
 
             var tenants = data.GroupBy(p => p.TenantId).ToList();
             var tenantPayments = new List<TenantPayment>();
@@ -26,12 +26,13 @@ namespace Components.Logic
                 {
                     if (p.Payment == null)
                     {
-                        p.Payment = new Payment() { Amount = 0 };
+                        p.Payment = new Payment() { Amount = 0, BillingCyclePaidId = 0 };
                     }
 
                     tenantPayment.Tenant = p.Tenant;
-                    tenantPayment.Payment.Id = p.Payment.Id;
-                    tenantPayment.Payment.Amount += p.Payment.Amount;
+                    tenantPayment.Payment.BillingCyclePaidId = p.Payment.BillingCyclePaidId;
+                    if (tenantPayment.Payment.BillingCyclePaidId == billingCycleId)
+                        tenantPayment.Payment.Amount += p.Payment.Amount;
                 });
                 tenantPayments.Add(tenantPayment);
             });

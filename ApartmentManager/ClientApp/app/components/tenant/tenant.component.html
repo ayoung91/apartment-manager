@@ -16,6 +16,7 @@
                 <th>Phone Number</th>
                 <th>Rent Cost</th>
                 <th>Security Deposit</th>
+                <th>Billing Period</th>
             </tr>
         </thead>
         <tr *ngFor="let tenant of tenants">
@@ -31,6 +32,7 @@
             <td>{{ tenant.person.personContact.phoneNumber | phone }}</td>
             <td>{{ tenant.apartment.rentCost | currency:'USD':true }}</td>
             <td>{{ tenant.apartment.securityDeposit | currency:'USD':true }}</td>
+            <td>{{ tenant.startBillingCycle.billingMonth }} {{ tenant.startBillingCycle.billingYear }} - {{ tenant.endBillingCycle.billingMonth }} {{ tenant.endBillingCycle.billingYear }}</td>
         </tr>
     </table>
 </div>

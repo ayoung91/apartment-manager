@@ -1,5 +1,11 @@
 ﻿<h2>Payment Information</h2>
-<button class="btn btn-primary" (click)=addPayment() tooltip="Add Payment"><i class="fas fa-plus"></i></button>
+<div>
+    <button class="btn btn-primary" (click)=addPayment() tooltip="Add Payment"><i class="fas fa-plus"></i></button>
+    <label>Tenant</label>
+    <select [(ngModel)]="selectedBillingCycle">
+        <option *ngFor="let billingCycle of billingCycles" [ngValue]="billingCycle.id">{{ billingCycle.billingMonth }} {{ billingCycle.billingYear }}</option>
+    </select>
+</div>
 <div>
     <table class="table table-striped">
         <thead>

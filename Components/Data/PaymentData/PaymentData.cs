@@ -8,7 +8,7 @@ namespace Components.Data
 {
     public class PaymentData
     {
-        public List<TenantPayment> GetPayments()
+        public List<TenantPayment> GetPayments(int billingCycleId)
         {
             using (var db = new ApartmentManagerContext())
             {
@@ -18,8 +18,10 @@ namespace Components.Data
                     .Include(t => t.Tenant)
                         .ThenInclude(a => a.Apartment)
                         .ThenInclude(ad => ad.Address)
-                        .Where(t => t.Tenant.Active == true)
                     .Include(p => p.Payment)
+                        .Where(w => w.Tenant.EndBillingCycle.Id >= billingCycleId &&
+                            w.Tenant.StartBillingCycle.Id <= billingCycleId &&
+                            w.Tenant.Active == true)
                     .OrderBy(o => o.Tenant.Person.LastName)
                     .ThenBy(o => o.Tenant.Person.FirstName)
                     .ThenBy(o => o.Tenant.Apartment.Address.StreetAddress)

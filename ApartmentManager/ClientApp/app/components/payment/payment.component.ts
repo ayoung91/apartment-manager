@@ -5,6 +5,7 @@ import { PaymentService } from '../../services/payment.service';
 import { PaymentNewComponent } from '../payment-new/payment-new.component';
 import { TenantService } from '../../services/tenant.service';
 import { PaymentHistoryComponent } from '../payment-history/payment-history.component';
+import { BillingCycleService } from '../../services/billingCycle.service';
 
 export class PaymentModel {
     id: any = 0;
@@ -42,7 +43,7 @@ export class PaymentModel {
 @Component({
     selector: 'payment',
     templateUrl: './payment.component.html',
-    providers: [PaymentService, TenantService],
+    providers: [PaymentService, TenantService, BillingCycleService],
     styleUrls: ['../app/app.component.css']
 })
 
@@ -51,11 +52,23 @@ export class PaymentComponent {
     payment: any = new PaymentModel();
     paymentInfo: any;
     tenant: any;
+    billingCycles: any;
+    selectedBillingCycle: any;
 
-    constructor(private paymentService: PaymentService, private tenantService: TenantService, private dialogService: DialogService) { }
+    constructor(private paymentService: PaymentService, private billingCycleService: BillingCycleService, private tenantService: TenantService, private dialogService: DialogService) { }
 
     public ngOnInit(): void {
+        this.getBillingCycles();
         this.getPayments();
+    }
+
+
+    getBillingCycles() {
+        this.billingCycleService.GetBillingCycles()
+            .then(response => {
+                this.billingCycles = response;
+                console.log(this.billingCycles);
+            });
     }
 
     getPayments() {

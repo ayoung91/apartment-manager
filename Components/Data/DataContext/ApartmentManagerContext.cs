@@ -13,6 +13,7 @@ namespace Components.Data.DataContext
         public virtual DbSet<PersonContact> PersonContact { get; set; }
         public virtual DbSet<Tenant> Tenant { get; set; }
         public virtual DbSet<TenantPayment> TenantPayment { get; set; }
+        public virtual DbSet<BillingCycle> BillingCycle { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -61,6 +62,10 @@ namespace Components.Data.DataContext
                 entity.HasOne(d => d.PaymentMethod)
                     .WithMany(p => p.Payment)
                     .HasForeignKey(d => d.PaymentMethodId);
+
+                entity.HasOne(d => d.BillingCyclePaid)
+                    .WithMany(p => p.Payment)
+                    .HasForeignKey(d => d.BillingCyclePaidId);
             });
 
             modelBuilder.Entity<PaymentMethod>(entity =>
@@ -100,6 +105,17 @@ namespace Components.Data.DataContext
                 entity.HasOne(d => d.Person)
                     .WithMany(p => p.Tenant)
                     .HasForeignKey(d => d.PersonId);
+
+                entity.HasOne(d => d.StartBillingCycle)
+                    .WithMany(p => p.StartTenant)
+                    .HasForeignKey(d => d.StartBillingCycleId);
+            });
+
+            modelBuilder.Entity<Tenant>(entity =>
+            {
+                entity.HasOne(d => d.EndBillingCycle)
+                    .WithMany(p => p.EndTenant)
+                    .HasForeignKey(d => d.EndBillingCycleId);
             });
 
             modelBuilder.Entity<TenantPayment>(entity =>
