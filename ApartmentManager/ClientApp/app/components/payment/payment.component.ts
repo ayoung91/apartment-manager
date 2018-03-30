@@ -36,6 +36,11 @@ export class PaymentModel {
         paymentMethod: {
             id: '',
             method: ''
+        },
+        billingCycle: {
+            id: '',
+            billingMonth: '',
+            billingYear: ''
         }
     };
 }
@@ -76,13 +81,13 @@ export class PaymentComponent {
         this.paymentService.GetAllPayments(billingCycle.id)
             .then(response => {
                 this.payments = response;
-                let poop = this.currentBillingCycle;
                 this.selectedBillingCycle = billingCycle;
                 console.log(this.payments);
             })
     }
 
     addPayment() {
+        this.payment.billingCycle.id = this.selectedBillingCycle;
         let disposable = this.dialogService.addDialog(PaymentNewComponent, {
             title: 'Add New Payment',
             paymentInfo: this.payment
@@ -100,7 +105,7 @@ export class PaymentComponent {
     }
 
     isPastDue(tenant: any) {
-        if (tenant.payment.balance > 0 && this.selectedBillingCycle.id == this.currentBillingCycle.id) {
+        if (tenant.payment.balance > 0 && this.selectedBillingCycle.id < this.currentBillingCycle.id) {
             return true;
         }
         else {

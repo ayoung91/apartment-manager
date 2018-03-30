@@ -33,6 +33,8 @@ namespace Components.Data
             {
                 tenant.Apartment.Address = db.Address.Find(tenant.Apartment.Address.Id);
                 tenant.Apartment = db.Apartment.Find(tenant.Apartment.Id);
+                tenant.StartBillingCycle = db.BillingCycle.Find(tenant.StartBillingCycle.Id);
+                tenant.EndBillingCycle = db.BillingCycle.Find(tenant.EndBillingCycle.Id);
                 tenant.Apartment.Available = false;
                 db.Tenant.Add(tenant);
 
@@ -46,6 +48,8 @@ namespace Components.Data
         {
             using (var db = new ApartmentManagerContext())
             {
+                tenant.StartBillingCycle = db.BillingCycle.Find(tenant.StartBillingCycle.Id);
+                tenant.EndBillingCycle = db.BillingCycle.Find(tenant.EndBillingCycle.Id);
                 db.Tenant.Update(tenant);
                 db.SaveChanges();
             }

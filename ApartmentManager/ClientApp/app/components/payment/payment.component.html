@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-6">
         <label for="billingCycle">Billing Cycle</label>
-        <select id="billingCycle" [(ngModel)]="currentBillingCycle" (ngModelChange)="getPayments($event)">
+        <select id="billingCycle" [(ngModel)]="selectedBillingCycle" (ngModelChange)="getPayments($event)">
             <option *ngFor="let billingCycle of billingCycles" [ngValue]="billingCycle">{{ billingCycle.billingMonth }} {{ billingCycle.billingYear }}</option>
         </select>
     </div>
