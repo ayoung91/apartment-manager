@@ -41,6 +41,23 @@
                            (input)="tenantInfo.person.personContact.phoneNumber = $event.target.value">
                     <show-errors [control]="tenantInfoForm.controls.Phone_Number"></show-errors>
                 </div>
+                <div class="form-group">
+                    <label for="startBillingCycle">Billing Cycle Start</label>
+                    <select class="form-control"
+                            formControlName="Billing_Cycle_Start"
+                            (input)="selectedBillingCycle = event.target.value">
+                        <option *ngFor="let billingCycle of billingCycles" [ngValue]="billingCycle.id">{{ billingCycle.billingMonth }} {{ billingCycle.billingYear }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="leaseLength">Lease Length</label>
+                    <input type="text"
+                           class="form-control"
+                           formControlName="Lease_Length"
+                           placeholder="Enter Lease Length"
+                           (input)="leaseLength = $event.target.value">
+                    <show-errors [control]="tenantInfoForm.controls.Lease_Length"></show-errors>
+                </div>
                 <button type="submit" class="btn btn-primary" [disabled]="!tenantInfoForm.valid">Submit</button>
                 <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
             </form>

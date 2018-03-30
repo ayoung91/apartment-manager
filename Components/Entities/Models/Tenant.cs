@@ -13,8 +13,8 @@ namespace Components.Entities
         public int? PersonId { get; set; }
         public int? ApartmentId { get; set; }
         public bool? Active { get; set; }
-        public int StartBillingCycleId { get; set; }
-        public int EndBillingCycleId { get; set; }
+        public int? StartBillingCycleId { get; set; }
+        public int? EndBillingCycleId { get; set; }
 
         public Apartment Apartment { get; set; }
         public Person Person { get; set; }
