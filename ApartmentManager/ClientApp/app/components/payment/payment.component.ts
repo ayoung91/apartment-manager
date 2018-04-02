@@ -87,7 +87,7 @@ export class PaymentComponent {
     }
 
     addPayment() {
-        this.payment.billingCycle.id = this.selectedBillingCycle;
+        this.payment.payment.billingCycle.id = this.selectedBillingCycle.id;
         let disposable = this.dialogService.addDialog(PaymentNewComponent, {
             title: 'Add New Payment',
             paymentInfo: this.payment

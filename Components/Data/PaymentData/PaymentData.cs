@@ -64,6 +64,7 @@ namespace Components.Data
                 payment.Tenant.Apartment = db.Apartment.Find(payment.Tenant.Apartment.Id);
                 payment.Tenant = db.Tenant.Find(payment.Tenant.Id);
                 payment.Payment.PaymentMethod = db.PaymentMethod.Find(payment.Payment.PaymentMethod.Id);
+                payment.Payment.BillingCyclePaid = db.BillingCycle.Find(payment.Payment.BillingCyclePaidId);
 
                 db.Payment.Add(payment.Payment);
                 db.TenantPayment.Update(payment);
